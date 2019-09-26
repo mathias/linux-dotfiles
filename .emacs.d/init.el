@@ -1,6 +1,10 @@
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
 
+;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'gruvbox-dark-soft t)
+(enable-theme 'gruvbox-dark-soft)
+
 (require 'package)
 (setq package-enable-at-startup nil)
 
@@ -28,6 +32,18 @@
 (use-package elm-mode :defer t)
 
 (use-package git-link :defer t)
+
+(use-package gruvbox-theme
+  :defer nil
+  :init (progn ))
+
+(use-package ivy
+  :diminish (ivy-mode)
+  :bind (("C-x b" . ivy-switch-buffer))
+  :config
+  (ivy-mode 1)
+  (setq ivy-use-virtual-buffers t)
+  (setq ivy-display-style 'fancy))
 
 (use-package keyfreq
   :defer nil
@@ -62,6 +78,7 @@
 (use-package paren
   :config (progn
 	    (setq show-paren-delay 0)
+	    (setq show-paren-style 'mixed)
 	    (show-paren-mode)))
 
 (use-package paredit
@@ -97,19 +114,19 @@
     ;; This is your old M-x.
     (global-set-key (kbd "C-c C-c M-x") 'execute-extended-command)))
 
-;; (use-package swiper
-;;   :bind (("C-s" . swiper)
-;; 	 ("C-r" . swiper)
-;; 	 ("C-c C-r" . ivy-resume)
-;; 	 ("M-x" . counsel-M-x)
-;; 	 ("C-x C-f" . counsel-find-file)
-;; 	 ("C-c k" . counsel-ag))
-;;   :config
-;;   (progn
-;;     (ivy-mode 1)
-;;     (setq ivy-use-virtual-buffers t)
-;;     (setq enable-recursive-minibuffers t)
-;;     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
+(use-package swiper
+  :bind (("C-s" . swiper)
+	 ("C-r" . swiper)
+	 ("C-c C-r" . ivy-resume)
+	 ("M-x" . counsel-M-x)
+	 ("C-x C-f" . counsel-find-file)
+	 ("C-c k" . counsel-ag))
+  :config
+  (progn
+    (ivy-mode 1)
+    (setq ivy-use-virtual-buffers t)
+    (setq enable-recursive-minibuffers t)
+    (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
 
 (use-package which-key
   :config
@@ -127,19 +144,25 @@
     (add-to-list 'auto-mode-alist '("\\.txt\\'" . writegood-mode)))
   :bind (("C-c g" . writegood-mode)))
 
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ansi-color-faces-vector
-   [default default default italic underline success warning error])
- '(custom-enabled-themes '(wombat))
- '(package-selected-packages
-   '(ivy whole-line-or-region mic-paren which-key rainbow-delimiters keyfreq counsel use-package)))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
+;;;; set up emacs itself
+
+
+(setq user-full-name "Matt Gauger")
+(setq user-mail-address "matt.gauger@gmail.com")
+
+(setq custom-file "~/.emacs.d/custom.el")
+
+
+;; Autorevert files (mandatory if working with VCS like git)
+(global-auto-revert-mode t)
+
+;; Do not save autosave/swap files in current directory
+;; Save all tempfiles in $TMPDIR/emacs$UID/ instead
+(defconst emacs-tmp-dir (format "%s/%s%s/" temporary-file-directory "emacs" (user-uid)))
+
+(setq backup-directory-alist
+      `((".*" . ,emacs-tmp-dir)))
+(setq auto-save-file-name-transforms
+      `((".*" ,emacs-tmp-dir t)))
+(setq auto-save-list-file-prefix
+      emacs-tmp-dir)
