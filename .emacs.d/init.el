@@ -68,6 +68,8 @@
     (visual-line-mode t)
     (flyspell-mode t)))
 
+
+
 ;; highlight matching parentheses
 ;; (use-package mic-paren
 ;;   :config
@@ -127,6 +129,9 @@
     (setq ivy-use-virtual-buffers t)
     (setq enable-recursive-minibuffers t)
     (define-key read-expression-map (kbd "C-r") 'counsel-expression-history)))
+
+(use-package try
+  :ensure t)
 
 (use-package which-key
   :config
