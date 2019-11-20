@@ -15,7 +15,7 @@ alias h=heroku
 
 # Emacs
 e() {
-  SERVICE='Emacs'
+  SERVICE='emacs'
 
   if [[ -z $(ps ax | grep -v grep | grep $SERVICE) ]]
   then
