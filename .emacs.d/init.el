@@ -1,17 +1,13 @@
 (setq inhibit-startup-message t)
 (tool-bar-mode -1)
 
-;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
-(load-theme 'gruvbox-dark-soft t)
-(enable-theme 'gruvbox-dark-soft)
-
 (require 'package)
 (setq package-enable-at-startup nil)
 
 (add-to-list 'package-archives
 	     '("melpa-stable" . "https://stable.melpa.org/packages/")
 	     '("melpa" . "https://melpa.org/packages"))
-;(package-initialize)
+(package-initialize)
 
 ;; Bootstrap `use-package'
 (unless (package-installed-p 'use-package)
@@ -34,8 +30,7 @@
 (use-package git-link :defer t)
 
 (use-package gruvbox-theme
-  :defer nil
-  :init (progn ))
+  :defer nil)
 
 (use-package ivy
   :diminish (ivy-mode)
@@ -171,3 +166,8 @@
       `((".*" ,emacs-tmp-dir t)))
 (setq auto-save-list-file-prefix
       emacs-tmp-dir)
+
+;; Theme setup
+;;(add-to-list 'custom-theme-load-path "~/.emacs.d/themes")
+(load-theme 'gruvbox-dark-soft t)
+(enable-theme 'gruvbox-dark-soft)
