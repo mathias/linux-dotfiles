@@ -21,3 +21,13 @@ Steps to set up a new Linux laptop again, for my own edification:
 1. Install vcsh (from apt, etc)
 1. In home directory: `vcsh clone git@github.com:mathias/linux-dotfiles.git linux-dotfiles`
 1. Make sure that emacs can load `init.el` cleanly
+
+## Firefox setup
+
+Firefox `74.0` or newer.
+
+Extensions to install:
+
+* Auto Tab Discard
+* Duckduckgo Privacy Essentials
+* Library Extension
